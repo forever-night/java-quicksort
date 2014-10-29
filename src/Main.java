@@ -1,25 +1,20 @@
 /**
  * Created by anna on 10/28/14.
  */
-//import java.util.Random;
+import java.util.Random;
 
 
 public class Main {
     public static void main(String[] args) {
-        int[] input = {5, 6, 22, 64, 23, 13, 9, 0, 34, 7, 4};
+        int[] input = generateArray(20);
 
         System.out.println("input:");
-
-        for (int i : input)
-            System.out.print(i + " ");
+        printArray(input);
 
         sort(input, 0, input.length - 1);
 
         System.out.println("\noutput");
-
-        for (int o : input)
-            System.out.print(o + " ");
-
+        printArray(input);
     }
 
 
@@ -28,7 +23,7 @@ public class Main {
 
 
         if (leftIndex < pivotIndex - 1)
-            sort(input, leftIndex, pivotIndex);
+            sort(input, leftIndex, pivotIndex - 1);
         if (pivotIndex < rightIndex)
             sort(input, pivotIndex, rightIndex);
 
@@ -41,8 +36,10 @@ public class Main {
         int right = rightIndex;
         int pivot = input[(leftIndex + rightIndex) / 2];
 
+
         System.out.println(
-                "\npivot = " + pivot + "\npivotIndex = " + (left + right) / 2
+                "\npivot = " + pivot +
+                "\npivotIndex = " + (left + right) / 2
         );
 
 
@@ -55,15 +52,33 @@ public class Main {
                 int temp = input[left];
                 input[left] = input[right];
                 input[right] = temp;
+
                 left++;
                 right--;
 
                 System.out.println("\ndivide:");
-                for (int i : input)
-                    System.out.print(i + " ");
+                printArray(input);
             }
         }
 
         return left;
+    }
+
+
+    public static void printArray(int[] array){
+        for (int i : array)
+            System.out.print(i + " ");
+    }
+
+
+    public static int[] generateArray(int length){
+        int[] array = new int[length];
+        Random rand = new Random();
+
+
+        for (int i = 0; i < array.length; i++)
+            array[i] = rand.nextInt(100);
+
+        return array;
     }
 }
