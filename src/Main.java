@@ -19,13 +19,14 @@ public class Main {
 
 
     public static int[] sort(int[] input, int leftIndex, int rightIndex) {
-        int pivotIndex = divide(input, leftIndex, rightIndex);
+        int pivotIndex;
 
+        if (rightIndex > leftIndex) {
+            pivotIndex = divide(input, leftIndex, rightIndex);
 
-        if (leftIndex < pivotIndex - 1)
             sort(input, leftIndex, pivotIndex - 1);
-        if (pivotIndex < rightIndex)
             sort(input, pivotIndex, rightIndex);
+        }
 
         return input;
     }
@@ -34,14 +35,11 @@ public class Main {
     public static int divide(int[] input, int leftIndex, int rightIndex){
         int left = leftIndex;
         int right = rightIndex;
+
+        // (leftIndex + (rightIndex - leftIndex)) / 2
         int pivot = input[(leftIndex + rightIndex) / 2];
 
-
-        System.out.println(
-                "\npivot = " + pivot +
-                "\npivotIndex = " + (left + right) / 2
-        );
-
+//        System.out.println("\npivot = " + pivot);
 
         while (left <= right) {
             while (input[left] < pivot)
@@ -49,6 +47,7 @@ public class Main {
             while (input[right] > pivot)
                 right--;
             if (left <= right) {
+                // swap values
                 int temp = input[left];
                 input[left] = input[right];
                 input[right] = temp;
@@ -56,8 +55,8 @@ public class Main {
                 left++;
                 right--;
 
-                System.out.println("\ndivide:");
-                printArray(input);
+//                System.out.println("\nprocessing:");
+//                printArray(input);
             }
         }
 
